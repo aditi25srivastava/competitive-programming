@@ -1,0 +1,5 @@
+n,k,l,c,d,p,nl,np = map(int,input().split())
+drinkToasts = (k*l)//nl
+limeToasts = c*d
+saltToasts = p//np
+print(min(drinkToasts,limeToasts,saltToasts)//n)
