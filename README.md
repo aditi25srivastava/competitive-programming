@@ -1,4 +1,4 @@
-# Competitive-programming
+# 👾 Competitive-programming
 
 
 A collection of my solutions to competitive programming problems, mainly focused on **Data Structures, Algorithms, Problem Solving, and C++**.
