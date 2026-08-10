@@ -1,0 +1,13 @@
+import sys
+input = sys.stdin.readline
+ 
+t = int(input())
+out = []
+for _ in range(t):
+    a,b,c = map(int, input().split())
+    x,y,z = sorted((a,b,c))
+    if x + y >= z:
+        out.append(z - x)
+    else:
+        out.append(y)
+print('\n' .join(map(str,out)))        
