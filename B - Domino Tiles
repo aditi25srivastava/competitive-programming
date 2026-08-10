@@ -1,0 +1,30 @@
+import sys
+input = sys.stdin.readline
+MOD = 998244353
+ 
+t = int(input())
+out = []
+for _ in range(t):
+    n = int(input())
+    s = input().strip()
+    ans = 1
+    for start_parity in (0,1):
+        valid0 = True
+        valid1 = True
+        p = 0
+        for i in range(start_parity, n, 2):
+            c = s[i]
+            if c != '?':
+                cv = int(c)
+                needed_b = cv ^ (p % 2)
+                if needed_b == 0:
+                    valid1 = False
+                else:
+                    valid0 = False
+            p += 1
+        ways = (1 if valid0 else 0) + (1 if valid1 else 0)
+        ans = (ans * ways) % MOD
+        if ans == 0:
+            break
+    out.append(str(ans))
+print('\n'.join(out)) 
