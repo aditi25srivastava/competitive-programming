@@ -1,0 +1,18 @@
+class Solution(object):
+    def minOperations(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        n = len(s)
+        best = float('inf')
+        for r in range(n):
+            rotated = s[r:] + s[:r]
+            cost = r
+            for i in range(n // 2):
+                a, b = ord(rotated[i]) - ord('a'), ord(rotated[n-1-i]) - ord('a')
+                d = abs(a - b)
+                cost += min(d, 26 - d)
+            best = min(best, cost)
+        return best    
+                
