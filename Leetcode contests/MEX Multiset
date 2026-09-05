@@ -1,0 +1,42 @@
+import sys
+input = sys.stdin.readline
+ 
+def solve():
+    t = int(input())
+    out = []
+ 
+    for _ in range(t):
+        n = int(input())
+        a = list(map(int, input().split()))
+ 
+        from collections import Counter
+        cnt = Counter(a)
+        c0 = cnt.get(0, 0)
+        if c0 == 1:
+            out.append("No")
+            continue
+        if c0 == 0:
+            out.append("YES")
+            out.append('C' * n)
+            continue
+        k = 0
+        while cnt.get(k, 0) >= 2:
+            k += 1
+        res = []
+        used = {}
+        for val in a:
+            if val < k:
+                u = used.get(val, 0)
+                if u == 0:
+                    res.append('A')
+                    used[val] = 1
+                elif u == 1:
+                    res.append('B')
+                    used[val] = 2
+                else:
+                    res.append('A')
+            else:
+                res.append('C')
+        out.append("YES")
+        out.append(''.join(res))
+    print('\n'.join(out))
