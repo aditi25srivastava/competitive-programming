@@ -1,0 +1,27 @@
+import heapq, sys
+input = sys.stdin.readline
+def solve():
+    n, m = map(int, input().split())
+    a = list(map(int, input().split()))
+    if m == 1:
+        print(max(a))
+        return
+    heap= []
+    heap_sum = 0
+    best = float('-inf')
+    for j in range(n):
+        if len(heap) == m-1:
+            candidate = m * a[j] - heap_sum
+            if candidate > best:
+                best = candidate
+        if len(heap) < m-1:
+            heapq.heappush(heap, -a[j])
+            heap_sum += a[j]
+        else:
+            if -heap[0] > a[j]:
+                heap_sum += a[j] - (-heap[0])
+                heapq.heapreplace(heap, -a[j])
+    print(best)
+t = int(input())
+for _ in range(t):
+    solve()
