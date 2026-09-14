@@ -1,0 +1,59 @@
+import sys
+input = sys.stdin.readline
+ 
+def solve():
+    n = int(input())
+ 
+    if n == 1:
+        print("1")
+        return
+    if n == 2:
+        print("01")
+        return
+    if n == 3:
+        print("101")
+        return
+    if n == 4:
+        print("0101")
+        return
+    if n == 5:
+        print("01010")
+        return
+    k, r = divmod(n, 6)
+ 
+    if r == 0:
+        g = (0, 2 * k - 1, 2 * k - 1, 2 * k - 1)
+ 
+    elif r == 1:
+        g = (0, 2 * k, 2 * k - 1, 2 * k - 1)
+ 
+    elif r == 2:
+        g = (0, 2 * k, 2 * k - 1, 2 * k)
+ 
+    elif r == 3:
+        g = (0, 2 * k, 2 * k - 1, 2 * k + 1)
+ 
+    elif r == 4:
+        g = (0, 2 * k + 1, 2 * k + 1, 2 * k - 1)
+ 
+    else:  # r == 5
+        g = (0, 2 * k + 1, 2 * k + 1, 2 * k)
+ 
+    g0, g1, g2, g3 = g
+ 
+    ans = (
+        '0' * g0 +
+        '1' +
+        '0' * g1 +
+        '1' +
+        '0' * g2 +
+        '1' +
+        '0' * g3
+    )
+ 
+    print(ans)
+ 
+t = int(input())
+ 
+for _ in range(t):
+    solve()
