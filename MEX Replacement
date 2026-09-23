@@ -1,0 +1,48 @@
+import sys
+ 
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0]); idx = 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); idx += 1
+        LIM = n + 60
+        a = [0] * (LIM + 1)
+        N = 0
+        max_x = 0
+        for _ in range(n):
+            x = int(data[idx]); y = int(data[idx + 1]); idx += 2
+            N += y
+            if x > max_x:
+                max_x = x
+            if x <= LIM:
+                a[x] = y
+        def check(m):
+            if m <= 1:
+                return True
+            sumd = 0
+            U = 0
+            for u in range(m - 1, 1, -1):
+                r = 1 + sumd
+                if r > N:
+                    return False
+                au = a[u]
+                if au >= r:
+                    U += r
+                else:
+                    U += au
+                    sumd += r - au
+                    if sumd > N:
+                        return False
+            return 2 * (1 + sumd) <= N - U
+        lo, hi = 1, LIM
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if check(mid):
+                lo = mid
+            else:
+                hi = mid - 1
+        out.append(max(max_x, lo))
+    print("\n".join(map(str, out)))
+main()    
+            
