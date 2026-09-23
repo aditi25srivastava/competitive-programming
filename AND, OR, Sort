@@ -1,0 +1,22 @@
+import sys
+def main():
+    data = sys.stdin.read().split()
+    t = int(data[0]); idx = 1
+    out = []
+    for _ in range(t):
+        n = int(data[idx]); s = data[idx + 1]; idx += 2
+        total_zeros = s.count('0')
+        if s[0] == '1':
+            out.append(total_zeros)
+            continue
+        best = n
+        ones = zeros = 0
+        for ch in s:
+            if ch == '1':
+                ones += 1
+            else:
+                zeros += 1
+            best = min(best, ones + total_zeros - zeros)
+        out.append(best)
+    print("\n".join(map(str, out)))
+main()    
