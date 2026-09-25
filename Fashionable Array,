@@ -1,0 +1,15 @@
+from collections import Counter
+def solve():
+    n = int(input())
+    a = list(map(int, input().split()))
+    cnt = Counter(a)
+    max_count = max(cnt.values())
+    result = []
+    for r in range(1, max_count + 1):
+        vals = [v for v in cnt if cnt[v] >= r]
+        vals.sort(reverse=True)
+        result.extend(vals)
+    print(*result)    
+t = int(input())
+for _ in range(t):
+    solve()
