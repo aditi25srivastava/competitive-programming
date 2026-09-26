@@ -1,0 +1,20 @@
+class Solution(object):
+    def longestSubarray(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        n = len(nums)
+        best = 0
+        for l in range(n):
+            s = 0
+            seen = set()
+            for r in range(l,n):
+                s += nums[r]
+                mod_s = s % k
+                seen.add((2 * nums[r]) % k)
+                if mod_s == 0 or mod_s in seen:
+                    best = max(best, r - l + 1)
+        return best            
+        
