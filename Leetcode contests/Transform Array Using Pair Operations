@@ -1,0 +1,14 @@
+class Solution(object):
+    def canTransform(self, source, target):
+        """
+        :type source: List[int]
+        :type target: List[int]
+        :rif type: bool
+        """
+        if len(source) != len(target):
+            return False
+        if len(source) == 1:
+            return source[0] == target[0]
+        return sum(source) == sum(target)    
+        
+        
