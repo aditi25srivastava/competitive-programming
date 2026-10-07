@@ -1,0 +1,39 @@
+import sys 
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0]); p = 1
+    out  = []
+    for _ in range(t):
+        n = int(data[p]); k = int(data[p+1]); p += 2
+        labs = []
+        lo = 10**30
+        for i in range(n):
+            a = int(data[p]); b = int(data[p+1]); c = int(data[p+2]); p += 3
+            s = a + b + c
+            lo = min(lo, s)
+            if a <= b <= c:
+                d = None if a == c else min(c - b, b - a) + 1
+            else:
+                d = 0
+            labs.append((s,d))
+        hi = 2 * 10**18
+        def ok(S):
+            total = 0
+            for s, d in labs:
+                need = S - s
+                if need <= 0:
+                    continue
+                if d is None:
+                    return False
+                total += need + 2 * d
+                if total > k:
+                    return False
+            return True
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            if ok(mid): lo = mid
+            else:
+                hi = mid - 1
+        out.append(str(lo))
+    print('\n'.join(out))
+main()    
