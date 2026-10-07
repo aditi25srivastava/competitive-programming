@@ -1,0 +1,24 @@
+import sys
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0]); p = 1
+    out  = []
+    for _ in range(t):
+        n = int(data[p]); p += 1
+        a = data[p:p + n]; p += n
+        b = data[p:p + n]; p += n
+        w = lambda x, y: 2 if x == y else 1
+        T = 0
+        for j in range(n - 1):
+            T += w(a[j], b[j + 1]) + w(b[j], a[j + 1])
+        last = w(a[n - 1], b[n - 1])
+        S = 0
+        best = 0
+        for k in range(n):
+            best = max(best, S + T + last)
+            if k + 1 < n:
+                S += w(a[k], b[k]) + w(b[k], a[k + 1])
+                T -= w(a[k], b[k + 1]) + w(b[k], a[k + 1])
+        out.append(str(best))
+    print('\n'.join(out))
+main()        
