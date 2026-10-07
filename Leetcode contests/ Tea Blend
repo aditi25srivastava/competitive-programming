@@ -1,0 +1,41 @@
+import sys, random 
+from collections import Counter 
+def main():
+    M = 10**6
+    spf = list(range(M + 1))
+    for i in range(2, 1001):
+        if spf[i] == i:
+            for j in range(i * i, M + 1, i):
+                if spf[j] == j:
+                    spf[j] = i
+                    
+    rv = {}
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0]); p = 1
+    out = []
+    for _ in range(t):
+        n = int(data[p]); p += 1
+        h = []
+        H = []
+        cur = 0
+        for i in range(n):
+            x = int(data[p + i])
+            r = 0
+            while x > 1:
+                q = spf[x]
+                c = 0
+                while x % q == 0:
+                    x //= q
+                    c ^= 1
+                if c:
+                    if q not in rv:
+                        rv[q] = random.getrandbits(62)
+                    r ^= rv[q]     
+            h.append(r)
+            cur ^= r
+            H.append(cur)
+        p += n
+        cnt = Counter(H)
+        out.append(str(sum(cnt.get(x, 0) for x in h)))
+    print('\n'.join(out))
+main()    
