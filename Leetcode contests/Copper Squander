@@ -1,0 +1,47 @@
+import sys
+def main():
+    data = sys.stdin.buffer.read().split()
+    t = int(data[0]); p = 1
+    out = []
+    for _ in range(t):
+        n = int(data[p]); m = int(data[p+1]); q = int(data[p+2]); p += 3
+        edges =[]
+        total = 0
+        for i in range(m):
+            u = int(data[p]); v = int(data[p+1]); d = int(data[p+2]); p += 3
+            edges.append((d, u, v))
+            total += d
+        edges.sort()
+        par = list(range(n + 1))
+        def find(x):
+            while par[x] != x:
+                par[x] = par[par[x]]
+                x = par[x]
+            return x
+        w = []
+        for d, u,v in edges:
+            a = find(u); b = find(v)
+            if a != b:
+                par[a] = b
+                w.append(d)
+        rk = len(w)
+        c0 = n - rk 
+        pre = [0] * (rk + 1)
+        for i in range(rk):
+            pre[i + 1] = pre[i] + w[i]
+        res = []
+        for j in range(q):
+            x = int(data[p + j])
+            best = c0 - 1
+            l,h = c0, n - 1
+            while l <= h:
+                mid = (l + h) // 2
+                if w[n - mid - 1] - x * mid > 0:
+                    best = mid; l = mid + 1
+                else:
+                    h = mid - 1
+            res.append(total - pre[n - 1 - best] - x * best * (best + 1) // 2)
+        p += q
+        out.append(' '.join(map(str, res)))
+    print('\n'.join(out))
+main()   
